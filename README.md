@@ -2,4 +2,4 @@
 Vue Components for Zeppelin Element Library
 
 
-This package was build using veu-sfc-rollup
+This package was build using vue-sfc-rollup
