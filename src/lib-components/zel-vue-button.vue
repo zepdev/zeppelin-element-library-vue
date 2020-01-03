@@ -3,7 +3,6 @@
     class="zep-button"
     @click="handleClick"
     :disabled="buttonDisabled"
-    :variant="variant"
     :class="[
       variant ? 'zep-button-' + variant : '',
       size === 'small' ? 'zep-button--small' : '',
@@ -14,9 +13,7 @@
       class="zep-button__text"
       :class="[variant === 'tertiary' ? 'zep-button__text--tertiary' : '']"
     >
-      <span v-if="$slots.default">
-        <slot></slot>
-      </span>
+      <slot></slot>
     </span>
   </button>
 </template>

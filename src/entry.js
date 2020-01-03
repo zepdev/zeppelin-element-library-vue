@@ -2,13 +2,13 @@
 import * as components from '@/lib-components/index';
 
 // install function executed by Vue.use()
-function install(Vue) {
+const install = function(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Object.keys(components).forEach((componentName) => {
-    Vue.component(componentName, components[componentName]);
+  Object.entries(components).forEach(([componentName, component]) => {
+    Vue.component(componentName, component);
   });
-}
+};
 
 // Create module definition for Vue.use()
 const plugin = {

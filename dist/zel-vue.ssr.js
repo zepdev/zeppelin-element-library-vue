@@ -1,50 +1,61 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
 
-var script = {
-  name: "ZelVueButton",
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
 
-  props: {
-    variant: {
-      type: String,
-      default: "primary"
-    },
-    icon: {
-      type: String,
-      default: ""
-    },
-    size: String,
-    disabled: Boolean,
-    fullWidth: Boolean
-  },
-  computed: {
-    buttonDisabled: function buttonDisabled() {
-      return this.disabled || (this.elForm || {}).disabled;
+function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
     }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}var script = {
+  name: 'ZelVueSample',
+  // vue component name
+  data: function data() {
+    return {
+      counter: 5,
+      initCounter: 5
+    };
   },
   methods: {
-    handleClick: function handleClick(evt) {
-      this.$emit("click", evt);
+    increment: function increment(arg) {
+      if (typeof arg !== 'number') this.counter += 1;else this.counter += arg;
+    },
+    decrement: function decrement(arg) {
+      if (typeof arg !== 'number') this.counter -= 1;else this.counter -= arg;
+    },
+    reset: function reset() {
+      this.counter = this.initCounter;
     }
   }
 };function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -54,7 +65,7 @@ var script = {
         shadowMode = false;
     }
     // Vue.extend constructor export interop.
-    var options = typeof script === 'function' ? script.options : script;
+    const options = typeof script === 'function' ? script.options : script;
     // render functions
     if (template && template.render) {
         options.render = template.render;
@@ -69,7 +80,7 @@ var script = {
     if (scopeId) {
         options._scopeId = scopeId;
     }
-    var hook;
+    let hook;
     if (moduleIdentifier) {
         // server build
         hook = function (context) {
@@ -107,7 +118,7 @@ var script = {
     if (hook) {
         if (options.functional) {
             // register for functional component in vue file
-            var originalRender = options.render;
+            const originalRender = options.render;
             options.render = function renderWithStyleInjection(h, context) {
                 hook.call(context);
                 return originalRender(h, context);
@@ -115,73 +126,121 @@ var script = {
         }
         else {
             // inject component registration as beforeCreate hook
-            var existing = options.beforeCreate;
+            const existing = options.beforeCreate;
             options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
         }
     }
     return script;
+}function createInjectorSSR(context) {
+    if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+    }
+    if (!context)
+        return () => { };
+    if (!('styles' in context)) {
+        context._styles = context._styles || {};
+        Object.defineProperty(context, 'styles', {
+            enumerable: true,
+            get: () => context._renderStyles(context._styles)
+        });
+        context._renderStyles = context._renderStyles || renderStyles;
+    }
+    return (id, style) => addStyle(id, style, context);
+}
+function addStyle(id, css, context) {
+    const group =  css.media || 'default' ;
+    const style = context._styles[group] || (context._styles[group] = { ids: [], css: '' });
+    if (!style.ids.includes(id)) {
+        style.media = css.media;
+        style.ids.push(id);
+        let code = css.source;
+        style.css += code + '\n';
+    }
+}
+function renderStyles(styles) {
+    let css = '';
+    for (const key in styles) {
+        const style = styles[key];
+        css +=
+            '<style data-vue-ssr-id="' +
+                Array.from(style.ids).join(' ') +
+                '"' +
+                (style.media ? ' media="' + style.media + '"' : '') +
+                '>' +
+                style.css +
+                '</style>';
+    }
+    return css;
 }/* script */
 var __vue_script__ = script;
-
 /* template */
-var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{staticClass:"zep-button",class:[
-    _vm.variant ? 'zep-button-' + _vm.variant : '',
-    _vm.size === 'small' ? 'zep-button--small' : '',
-    _vm.fullWidth ? 'zep-button--small' : ''
-  ],attrs:{"disabled":_vm.buttonDisabled,"variant":_vm.variant},on:{"click":_vm.handleClick}},[_vm._ssrNode("<span"+(_vm._ssrClass("zep-button__text",[_vm.variant === 'tertiary' ? 'zep-button__text--tertiary' : '']))+">","</span>",[(_vm.$slots.default)?_vm._ssrNode("<span>","</span>",[_vm._t("default")],2):_vm._e()])])};
-var __vue_staticRenderFns__ = [];
 
-  /* style */
-  var __vue_inject_styles__ = undefined;
-  /* scoped */
-  var __vue_scope_id__ = undefined;
-  /* module identifier */
-  var __vue_module_identifier__ = "data-v-20c382c6";
-  /* functional template */
-  var __vue_is_functional_template__ = false;
-  /* style inject */
-  
-  /* style inject SSR */
-  
-  /* style inject shadow dom */
-  
+var __vue_render__ = function __vue_render__() {
+  var _vm = this;
 
-  
-  var __vue_component__ = normalizeComponent(
-    { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
-    __vue_inject_styles__,
-    __vue_script__,
-    __vue_scope_id__,
-    __vue_is_functional_template__,
-    __vue_module_identifier__,
-    false,
-    undefined,
-    undefined,
-    undefined
-  );/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,ZelVueButton: __vue_component__});// Import vue components
+  var _h = _vm.$createElement;
 
-// install function executed by Vue.use()
-function install(Vue) {
-  if (install.installed) { return; }
-  install.installed = true;
-  Object.keys(components).forEach(function (componentName) {
-    Vue.component(componentName, components[componentName]);
-  });
-}
+  var _c = _vm._self._c || _h;
 
-// Create module definition for Vue.use()
-var plugin = {
-  install: install,
+  return _c('div', {
+    staticClass: "zel-vue-sample"
+  }, [_vm._ssrNode("<p>The counter is set to <b>" + _vm._ssrEscape(_vm._s(_vm.counter)) + "</b>.</p> <button>Click +1</button> <button>Click -1</button> <button>Click +5</button> <button>Click -5</button> <button>Reset</button>")]);
 };
 
-// To auto-install when vue is found
+var __vue_staticRenderFns__ = [];
+/* style */
+
+var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
+  if (!inject) return;
+  inject("data-v-76814e7a_0", {
+    source: ".zel-vue-sample[data-v-76814e7a]{display:block;width:400px;margin:25px auto;border:1px solid #ccc;background:#eaeaea;text-align:center;padding:25px}.zel-vue-sample p[data-v-76814e7a]{margin:0 0 1em}",
+    map: undefined,
+    media: undefined
+  });
+};
+/* scoped */
+
+
+var __vue_scope_id__ = "data-v-76814e7a";
+/* module identifier */
+
+var __vue_module_identifier__ = "data-v-76814e7a";
+/* functional template */
+
+var __vue_is_functional_template__ = false;
+/* style inject shadow dom */
+
+var __vue_component__ = normalizeComponent({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, createInjectorSSR, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,ZelVueSample: __vue_component__});var install = function install(Vue) {
+  if (install.installed) return;
+  install.installed = true;
+  Object.entries(components).forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        componentName = _ref2[0],
+        component = _ref2[1];
+
+    Vue.component(componentName, component);
+  });
+}; // Create module definition for Vue.use()
+
+
+var plugin = {
+  install: install
+}; // To auto-install when vue is found
+
 /* global window global */
+
 var GlobalVue = null;
+
 if (typeof window !== 'undefined') {
   GlobalVue = window.Vue;
 } else if (typeof global !== 'undefined') {
   GlobalVue = global.Vue;
 }
+
 if (GlobalVue) {
   GlobalVue.use(plugin);
-}exports.ZelVueButton=__vue_component__;exports.default=plugin;
+} // Default export is library as a whole, registered via Vue.use()
+exports.ZelVueSample=__vue_component__;exports.default=plugin;
