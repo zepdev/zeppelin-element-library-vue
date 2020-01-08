@@ -6,7 +6,7 @@
     :class="[
       variant ? 'zep-button-' + variant : '',
       size === 'small' ? 'zep-button--small' : '',
-      fullWidth ? 'zep-button--small' : ''
+      fullWidth ? 'zep-button--full' : ''
     ]"
   >
     <span
@@ -16,7 +16,7 @@
       <slot></slot>
     </span>
   </button>
-</template>
+</template>            
 <script>
 export default {
   name: "ZelVueButton",

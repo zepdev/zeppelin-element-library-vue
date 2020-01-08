@@ -223,11 +223,110 @@ const __vue_component__ = normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__
 }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var script$1 = {
+  name: "ZelVueButton",
+  props: {
+    variant: {
+      type: String,
+      default: "primary"
+    },
+    icon: {
+      type: String,
+      default: ""
+    },
+    size: String,
+    disabled: Boolean,
+    fullWidth: Boolean
+  },
+  computed: {
+    buttonDisabled() {
+      return this.disabled || (this.elForm || {}).disabled;
+    }
+
+  },
+  methods: {
+    handleClick(evt) {
+      this.$emit("click", evt);
+    }
+
+  }
+};
+
+/* script */
+const __vue_script__$1 = script$1;
+/* template */
+
+var __vue_render__$1 = function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('button', {
+    staticClass: "zep-button",
+    class: [_vm.variant ? 'zep-button-' + _vm.variant : '', _vm.size === 'small' ? 'zep-button--small' : '', _vm.fullWidth ? 'zep-button--small' : ''],
+    attrs: {
+      "disabled": _vm.buttonDisabled
+    },
+    on: {
+      "click": _vm.handleClick
+    }
+  }, [_c('span', {
+    staticClass: "zep-button__text",
+    class: [_vm.variant === 'tertiary' ? 'zep-button__text--tertiary' : '']
+  }, [_vm._t("default")], 2)]);
+};
+
+var __vue_staticRenderFns__$1 = [];
+/* style */
+
+const __vue_inject_styles__$1 = undefined;
+/* scoped */
+
+const __vue_scope_id__$1 = undefined;
+/* module identifier */
+
+const __vue_module_identifier__$1 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$1 = false;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$1 = normalizeComponent({
+  render: __vue_render__$1,
+  staticRenderFns: __vue_staticRenderFns__$1
+}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
+
 /* eslint-disable import/prefer-default-export */
 
 var components = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    ZelVueSample: __vue_component__
+    ZelVueSample: __vue_component__,
+    ZelVueButton: __vue_component__$1
 });
 
 // Import vue components
@@ -260,4 +359,4 @@ if (GlobalVue) {
 } // Default export is library as a whole, registered via Vue.use()
 
 export default plugin;
-export { __vue_component__ as ZelVueSample };
+export { __vue_component__$1 as ZelVueButton, __vue_component__ as ZelVueSample };
