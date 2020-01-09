@@ -1,21 +1,26 @@
-<script>
-import Vue from "vue";
-import { ZelVueSample } from "@/entry";
-import { ZelVueButton } from "@/entry";
-import "zeppelin-element-library/bundle/zeppelin-element-library.css";
-
-export default Vue.extend({
-  name: "app",
-  components: {
-    ZelVueSample,
-    ZelVueButton
-  }
-});
-</script>
-
 <template>
   <div id="app" class="theme-zeppelin">
-    <zel-vue-sample />
-    <zel-vue-button variant="primary">Primary Button</zel-vue-button>
+    <zbutton variant="primary" size="10" :onClick="onHandleClick">Primary Button</zbutton>
   </div>
 </template>
+
+<script>
+import { ZelVueButton } from "@/entry";
+export default {
+  name: "app",
+  data:function(){
+    return{
+      testmessage:"Button clicked"
+    }
+    
+  },
+  components: {
+    'zbutton' :ZelVueButton
+  },
+  methods:{
+      onHandleClick(){
+       console.log( this.testmessage )
+      }
+  }
+};
+</script>
