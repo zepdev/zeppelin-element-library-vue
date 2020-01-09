@@ -6,6 +6,9 @@
 
 <script>
 import { ZelVueButton } from "@/entry";
+import { ZelVueCheckbox } from "@/entry";
+import { ZelVueInput } from "@/entry";
+import "../zeppelin-element-library.css";
 export default {
   name: "app",
   data:function(){
