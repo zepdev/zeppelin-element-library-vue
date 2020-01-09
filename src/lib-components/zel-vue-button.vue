@@ -1,13 +1,13 @@
 <template>
   <button
     class="zep-button"
-    @click="handleClick"
-    :disabled="buttonDisabled"
+    @click="onClick"
     :class="[
       variant ? 'zep-button-' + variant : '',
       size === 'small' ? 'zep-button--small' : '',
       fullWidth ? 'zep-button--full' : ''
     ]"
+    :disabled="buttonDisabled"
   >
     <span
       class="zep-button__text"
@@ -20,29 +20,28 @@
 <script>
 export default {
   name: "ZelVueButton",
-
   props: {
-    variant: {
-      type: String,
-      default: "primary"
-    },
+    disabled: Boolean,
+    fullWidth: Boolean,
     icon: {
       type: String,
       default: ""
     },
     size: String,
-    disabled: Boolean,
-    fullWidth: Boolean
+    onClick:{
+      type:Function,
+      required:false
+    },
+    variant: {
+      type: String,
+      default: "primary"
+    },
   },
   computed: {
     buttonDisabled() {
+      let con=this.disabled;
       return this.disabled || (this.elForm || {}).disabled;
     }
   },
-  methods: {
-    handleClick(evt) {
-      this.$emit("click", evt);
-    }
-  }
 };
 </script>
