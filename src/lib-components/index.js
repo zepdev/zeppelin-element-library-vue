@@ -7,3 +7,4 @@ export { default as ZelAttributeList } from "./List/zel-attribute-list.vue";
 export { default as ZelNotifications } from "./zel-vue-notification.vue";
 export { default as ZelNumberInput } from "./zel-vue-numberinput.vue";
 export { default as ZelRadioButton } from "./zel-vue-radiobutton.vue"
+export { default as ZelSearchInput } from "./zel-vue-searchinput.vue"

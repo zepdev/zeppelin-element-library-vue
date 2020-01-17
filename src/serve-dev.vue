@@ -24,7 +24,7 @@
     <zRadioButton
       name="title"
       id="zep_radio_male"
-      className="zep-radio__input"
+      class="zep-radio__input"
       label="Male"
       value="male"
       v-bind:checked="true"
@@ -34,7 +34,7 @@
     <zRadioButton
       name="title"
       id="zep_radio_female"
-      className="zep-radio__input"
+      class="zep-radio__input"
       label="Female"
       value="female"
       v-bind:checked="false"
@@ -42,6 +42,8 @@
       v-on:input="changeValue"
     ></zRadioButton>
     <span>Selected Radio: {{radioButtonCheck}}</span>
+    <br />
+    <zSearchInput id="searchbar" placeholder="Search" title="zepicons-search"></zSearchInput>
   </div>
 </template>
 
@@ -54,6 +56,7 @@ import { ZelAttributeList } from "@/entry";
 import { ZelNotifications } from "@/entry";
 import { ZelNumberInput } from "@/entry";
 import { ZelRadioButton } from "@/entry";
+import { ZelSearchInput } from "@/entry";
 
 import "../zeppelin-element-library.css";
 export default {
@@ -66,7 +69,8 @@ export default {
     zAttributeList: ZelAttributeList,
     zNotify: ZelNotifications,
     zNumberInput: ZelNumberInput,
-    zRadioButton: ZelRadioButton
+    zRadioButton: ZelRadioButton,
+    zSearchInput: ZelSearchInput
   },
   data: function() {
     return {
@@ -98,7 +102,7 @@ export default {
       this.counterparent = evtValue;
     },
     changeValue: function(newValue) {
-      this.radioButtonCheck = newValue; 
+      this.radioButtonCheck = newValue;
     }
   }
 };
