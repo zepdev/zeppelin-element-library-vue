@@ -3,13 +3,21 @@
     <input
       type="text"
       id="inputZeppelin"
-      placeholder="Placeholder"
+      :placeholder="placeholder"
       class="zep-input"
       :disabled="inputDisabled"
-      v-on:change="handleTextChange"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
     />
-    <label class="zep-input-container__label" for="inputZeppelin">{{placeholder}}</label>
-    <label class="zep-input-container__feedback" for="inputZeppelin" v-if="error">{{errorMessage}}</label>
+    <label class="zep-input-container__label" for="inputZeppelin">{{
+      placeholder
+    }}</label>
+    <label
+      class="zep-input-container__feedback"
+      for="inputZeppelin"
+      v-if="error"
+      >{{ errorMessage }}</label
+    >
   </div>
 </template>
 
@@ -19,14 +27,11 @@ export default {
     placeholder: {
       type: String
     },
-    error: {
-      type: Boolean
-    },
-    errorMessage: {
-      type: String
-    },
     disabled: Boolean,
-    label: String
+    label: String,
+    value: String,
+    error:Boolean,
+    errMessage:String
   },
   computed: {
     inputDisabled() {
@@ -35,4 +40,3 @@ export default {
   }
 };
 </script>
-
