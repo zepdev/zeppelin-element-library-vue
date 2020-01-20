@@ -1,7 +1,7 @@
 <template>
   <button
-    class="zep-button"
-    @click="onClick"
+     class="zep-button"
+     @click="callback($event)"
     :class="[
       variant ? 'zep-button-' + variant : '',
       size === 'small' ? 'zep-button--small' : '',
@@ -13,10 +13,10 @@
       class="zep-button__text"
       :class="[variant === 'tertiary' ? 'zep-button__text--tertiary' : '']"
     >
-      <slot></slot>
+      <slot>Primary Button</slot>
     </span>
   </button>
-</template>            
+</template>
 <script>
 export default {
   name: "ZelVueButton",
@@ -28,20 +28,20 @@ export default {
       default: ""
     },
     size: String,
-    onClick:{
-      type:Function,
-      required:false
-    },
     variant: {
       type: String,
       default: "primary"
-    },
+    }
   },
   computed: {
     buttonDisabled() {
-      let con=this.disabled;
       return this.disabled || (this.elForm || {}).disabled;
     }
   },
+   methods: {
+    callback: function(e) {
+      this.$emit('click', e);
+    }
+  }
 };
 </script>
