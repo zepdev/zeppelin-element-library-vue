@@ -1,13 +1,13 @@
 import { shallowMount, mount } from "@vue/test-utils";
 import { ZelVueCheckbox } from "@/entry";
 import { ZelVueInput } from "@/entry";
-import { ZelBulletList } from "@/entry";
-import { ZelAttributeList } from "@/entry";
-import { ZelNotifications } from "@/entry";
-import { ZelNumberInput } from "@/entry";
+import { ZelVueBulletList } from "@/entry";
+import { ZelVueAttributeList } from "@/entry";
+import { ZelVueNotifications } from "@/entry";
+import { ZelVueNumberInput } from "@/entry";
 import { ZelVueButton } from "@/entry";
-import { ZelRadioButton } from "@/entry";
-import { ZelSearchInput } from "@/entry";
+import { ZelVueRadioButton } from "@/entry";
+import { ZelVueSearchInput } from "@/entry";
 
 describe("ZelVueButton", () => {
   let buttonWrapper;
@@ -42,7 +42,7 @@ describe("ZelVueButton", () => {
 describe("ZelVueNotification", () => {
   let notificationWrapper;
   beforeEach(() => {
-    notificationWrapper = shallowMount(ZelNotifications, {
+    notificationWrapper = shallowMount(ZelVueNotifications, {
       propsData: {
         variant: "primary",
         message: "Thank you for signing up!"
@@ -148,7 +148,7 @@ describe("ZelVueInput", () => {
 describe("ZelNumberInput", () => {
   let numberInputWrapper;
   beforeEach(() => {
-    numberInputWrapper = mount(ZelNumberInput, {
+    numberInputWrapper = mount(ZelVueNumberInput, {
       propsData: {
         minustitle: "Zeppelin Minus",
         plustitle: "Zeppelin Plus",
@@ -169,7 +169,7 @@ describe("ZelNumberInput", () => {
         }
       },
       template: "<div><zNumberInput v-model='counter' @onminus-click='minusClick' @onplus-click='plusClick'></zNumberInput></div>",
-      components: { zNumberInput: ZelNumberInput }
+      components: { zNumberInput: ZelVueNumberInput }
     });
   });
   afterEach(() => {
@@ -201,7 +201,7 @@ describe("ZelNumberInput", () => {
         };
       },
       template: "<div><zNumberInput v-model='counter'></zNumberInput></div>",
-      components: { zNumberInput: ZelNumberInput }
+      components: { zNumberInput: ZelVueNumberInput }
     });
     const numberInputComponent = parentNumberInputWrapper.find("input");
     numberInputComponent.element.value = 5;
@@ -218,7 +218,7 @@ describe("ZelNumberInput", () => {
 describe("ZelRadioButton", () => {
   let radioWrapper;
   beforeEach(() => {
-    radioWrapper = shallowMount(ZelRadioButton, {
+    radioWrapper = shallowMount(ZelVueRadioButton, {
       propsData: {
         checked: false,
         label: "Male",
@@ -239,7 +239,7 @@ describe("ZelRadioButton", () => {
       template: `<div>
                   <zRadioButton name="name" id="zep_radio_male" className="zep-radio__input" label="label" value="female" v-bind:checked="checked" v-bind:required="required" v-on:input="changeValue"></zRadioButton>
                 </div> `,
-      components: { zRadioButton: ZelRadioButton }
+      components: { zRadioButton: ZelVueRadioButton }
     });
   });
   afterEach(() => {
@@ -268,12 +268,12 @@ describe("ZelRadioButton", () => {
 describe("ZelBulletList", () => {
   let bulletListWrapper;
   beforeEach(() => {
-    bulletListWrapper = shallowMount(ZelBulletList, {
+    bulletListWrapper = shallowMount(ZelVueBulletList, {
       propsData: {
         dataSource: [{ text: "item 1" }, { text: "item 2" }, { text: "item 3" }],
       },
       template: `<zBulletList v-bind:dataSource="dataSource"></zBulletList>`,
-      components: { zBulletList: ZelBulletList }
+      components: { zBulletList: ZelVueBulletList }
     });
   });
   afterEach(() => {
@@ -295,7 +295,7 @@ describe("ZelBulletList", () => {
 describe("ZelAttributeList", () => {
   let attributeListWrapper;
   beforeEach(() => {
-    attributeListWrapper = shallowMount(ZelAttributeList, {
+    attributeListWrapper = shallowMount(ZelVueAttributeList, {
       propsData: {
         dataSource: [
           { label: "label 1", text: "item 1" },
@@ -305,7 +305,7 @@ describe("ZelAttributeList", () => {
         ],
       },
       template: `<zAttributeList v-bind:dataSource="dataSource"></zAttributeList>`,
-      components: { zAttributeList: ZelAttributeList }
+      components: { zAttributeList: ZelVueAttributeList }
     });
   });
   afterEach(() => {
@@ -328,20 +328,22 @@ describe("ZelAttributeList", () => {
   })
 })
 describe("ZelSearchInput", () => {
-  /*let searchWrapper;
+  let searchWrapper;
   beforeEach(() => {
-    searchWrapper = shallowMount(ZelSearchInput, {
+    searchWrapper = mount({
       propsData: {
         id: "searchbar",
         placeholder: "Search",
         title: "zepicons-search",
-      
+        dataSource:null
       },
        data: function () {
         return {
           searchItems: [
             "forge",
             "enjoy",
+            "moment",
+            "michael",
             "museum",
             "tolerate",
             "past",
@@ -358,22 +360,55 @@ describe("ZelSearchInput", () => {
           this.searchItem = evtValue;
         }
       },
-      template: `<zSearchInput 
+      template: `<div><zSearchInput 
                   v-model="searchItem"
                   v-bind:dataSource="searchItems"
                   @onlist-click="getSearchItem"
                   @onenter_keypress="getSearchItem">
-                  </zSearchInput >`,
-      components: { zSearchInput: ZelSearchInput }
+                  </zSearchInput ></div>`,
+      components: { zSearchInput: ZelVueSearchInput }
     })
   })
   afterEach(() => {
     searchWrapper.destroy();
   })
-  test("Should search for item enjoy in the list of items ", () => {
-   let searchComponent = searchWrapper.find("input");
-     searchComponent.element.value = "enjoy";
-     searchComponent.trigger("input");
-     expect(searchWrapper.vm.searchItem).toBe("enjoy"); 
-  })*/
+   test("expect search input to emit change event", () => {
+    searchWrapper.vm.$emit("change");
+    expect(searchWrapper.emitted("change")).toBeTruthy();
+   });
+   test("expect search input to emit keyup  event", () => {
+    searchWrapper.vm.$emit("keyup");
+    expect(searchWrapper.emitted("keyup")).toBeTruthy();
+  });
+   test("expect search input to emit keypress  event", () => {
+    searchWrapper.vm.$emit("keypress");
+    expect(searchWrapper.emitted("keypress")).toBeTruthy();
+  });
+  test("expect search input to emit click event for li items", () => {
+    searchWrapper.vm.$emit("click");
+    expect(searchWrapper.emitted("click")).toBeTruthy();
+  });
+  test("expect list items for search input to have more than 1 search item present", () => {
+    let searchComponent = searchWrapper.find("input");
+    searchComponent.element.value = "m";
+    searchComponent.trigger("input");
+    let listItem = searchWrapper.findAll("li");
+    expect(listItem.length).toBeGreaterThan(1)
+  })
+  test("expect list items for search input to match items that does not exist", () => {
+    let searchComponent = searchWrapper.find("input");
+    searchComponent.element.value = "Zep";
+    searchComponent.trigger("input");
+    let listItem = searchWrapper.findAll("li");
+    expect(listItem.length).toBe(0)
+  })
+   test("Should search for item module in the list of items when mo is entered ", () => {
+    let searchComponent = searchWrapper.find("input");
+    searchComponent.element.value = "mo";
+    searchComponent.trigger("input");
+    let listItem = searchWrapper.findAll("li");
+    listItem.trigger("click");
+    expect(searchWrapper.vm.searchItem).toBe("module");
+   
+  })
 })
