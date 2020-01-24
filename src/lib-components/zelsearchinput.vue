@@ -144,7 +144,6 @@ export default {
   position: absolute;
   z-index: 1;
   width: 100%;
-  pointer-events: none;
   top: 100%;
 }
 </style>
