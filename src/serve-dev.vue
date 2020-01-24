@@ -50,13 +50,7 @@
     <span>Selected Radio: {{radioButtonCheck}}</span>
     <br />
     <br />
-    <!--  <zSelect
-      label="Country"
-      placeholder="Countries"
-      :dataSource="selectDataSource"
-      @selectlist-click="onSelectOptionClick"
-    />-->
-    <br />
+
     <zSearchInput
       id="searchbar"
       placeholder="Search"
@@ -65,7 +59,15 @@
       v-bind:dataSource="searchItems"
       @onlist-click="getSearchItem"
       @onenter_keypress="getSearchItem"
-    ></zSearchInput>
+    />
+    <br />
+    <zSelect
+      label="Countries"
+      placeholder="Please select country"
+      v-model="selectedOption"
+      :dataSource="selectDataSource"
+      @selectlist-click="onSelectOptionClick"
+    />
   </div>
 </template>
 
@@ -100,7 +102,7 @@ export default {
   data: function() {
     return {
       selectedOption: "",
-      selectDataSource: mockData,
+      selectDataSource: [],
       testmessage: "text change",
       isChecked: false,
       listItems: [{ text: "item 1" }, { text: "item 2" }, { text: "item 3" }],
@@ -149,6 +151,9 @@ export default {
       return this.testmessage;
     }
   },
+  mounted: function() {
+    this.selectDataSource = mockData;
+  },
   methods: {
     onSelectOptionClick(evtValue) {
       this.selectedOption = evtValue;
@@ -167,6 +172,9 @@ export default {
     },
     getSearchItem(evtValue) {
       this.searchItem = evtValue;
+    },
+    getSelectedItem(evtValue) {
+      this.selectedOption = evtValue;
     }
   }
 };

@@ -8,6 +8,7 @@ import { ZelVueNumberInput } from "@/entry";
 import { ZelVueButton } from "@/entry";
 import { ZelVueRadioButton } from "@/entry";
 import { ZelVueSearchInput } from "@/entry";
+import { ZelVueSelect } from "@/entry";
 
 describe("ZelVueButton", () => {
   let buttonWrapper;
@@ -145,7 +146,7 @@ describe("ZelVueInput", () => {
     parentInput.destroy();
   });
 });
-describe("ZelNumberInput", () => {
+describe("ZelVueNumberInput", () => {
   let numberInputWrapper;
   beforeEach(() => {
     numberInputWrapper = mount(ZelVueNumberInput, {
@@ -215,7 +216,7 @@ describe("ZelNumberInput", () => {
     expect(numberInputWrapper.find("#minus").isVisible()).toBe(true)
   })
 });
-describe("ZelRadioButton", () => {
+describe("ZelVueRadioButton", () => {
   let radioWrapper;
   beforeEach(() => {
     radioWrapper = shallowMount(ZelVueRadioButton, {
@@ -265,7 +266,7 @@ describe("ZelRadioButton", () => {
     expect(radioWrapper.vm.checkedValue).toBe("") */
   });
 });
-describe("ZelBulletList", () => {
+describe("ZelVueBulletList", () => {
   let bulletListWrapper;
   beforeEach(() => {
     bulletListWrapper = shallowMount(ZelVueBulletList, {
@@ -292,7 +293,7 @@ describe("ZelBulletList", () => {
     expect(bulletListWrapper.find("ul").classes()).toContain("zep-list");
   })
 })
-describe("ZelAttributeList", () => {
+describe("ZelVueAttributeList", () => {
   let attributeListWrapper;
   beforeEach(() => {
     attributeListWrapper = shallowMount(ZelVueAttributeList, {
@@ -327,7 +328,7 @@ describe("ZelAttributeList", () => {
     expect(attributeListWrapper.find("ul").classes()).toContain("zep-list");
   })
 })
-describe("ZelSearchInput", () => {
+describe("ZelVueSearchInput", () => {
   let searchWrapper;
   beforeEach(() => {
     searchWrapper = mount({
@@ -411,4 +412,81 @@ describe("ZelSearchInput", () => {
     expect(searchWrapper.vm.searchItem).toBe("module");
    
   })
+})
+describe("ZelVueSelect", () => {
+ let selectInputWrapper;
+  beforeEach(() => {
+    selectInputWrapper = mount({
+      propsData: {
+        label: "Country",
+        placeholder: "please select country",
+      },
+       data: function () {
+        return {
+          selectItems: [
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "American Samoa",
+            "Andorra",
+            "Angola",
+            "Anguilla",
+            "Antarctica",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Aruba",
+            "Australia"],
+          selectedOption: ""
+        }
+      },
+      methods: {
+        getSelectedOption(evtValue) {
+          this.selectedOption = evtValue;
+        }
+      },
+      template: `<div><zSelect label="Countries"
+                  v-model="selectedOption"
+                  v-bind:dataSource="selectItems"
+                  @selectlist-click="getSelectedOption"
+                  >
+                  </zSelect ></div>`,
+      components: { zSelect: ZelVueSelect }
+    })
+  })
+  afterEach(() => {
+    selectInputWrapper.destroy();
+  })
+  test("expect list item click to be emitted ", () => {
+    selectInputWrapper.vm.$emit("click");
+    expect(selectInputWrapper.emitted("click")).toBeTruthy();
+  })
+   test("expect selected item to be set", () => {
+      let selectComponent = selectInputWrapper.find("li:first-child");
+        selectComponent.trigger("click");
+       expect(selectInputWrapper.vm.$data.selectedOption).toBe("Afghanistan")
+   })
+    test("expect rendered items to be equal to items in the datasource", () => {
+        let listItem = selectInputWrapper.findAll("li");
+        expect(listItem.length).toBe(selectInputWrapper.vm.$data.selectItems.length)
+    })
+  test("expect select input to have required props set", () => {
+   const parentSelect= mount(ZelVueSelect,{
+     propsData: {
+       label: "Countries",
+       placeholder:"Please select country"
+      },
+      template: `<div><zSelect label="Countries"
+                  v-model="selectedOption"
+                  v-bind:dataSource="selectItems"
+                  @selectlist-click="getSelectedOption"
+                  >
+                  </zSelect ></div>`,
+     components: { zSelect: ZelVueSelect }
+    });
+    expect(parentSelect.props("label")).toBe("Countries");
+   expect(parentSelect.props("placeholder")).toBe("Please select country");
+    parentSelect.destroy();
+    
+  });
 })
