@@ -3,7 +3,13 @@
     <zButton variant="primary" @click="onHandleClick">Save Data</zButton>
     <zBulletList :dataSource="this.listItems"></zBulletList>
     <zAttributeList :dataSource="this.attributeItems"></zAttributeList>
-    <zInput placeholder="Checking" v-model="testmessage"></zInput>
+    <zInput
+      placeholder="Please enter your firstname"
+      label="First Name:"
+      v-model="testmessage"
+      error
+      errorMessage="Please enter your firstname"
+    ></zInput>
     <zCheckbox label="CheckBox" v-model="isChecked"></zCheckbox>
     <zNotify message="Please becareful!" variant="warning" />
     <zNotify message="Thank you for the info!" variant="info" />
@@ -13,7 +19,7 @@
     <zNumberInput
       minustitle="Zeppelin Minus"
       plustitle="Zeppelin Plus"
-      v-model="counterparent"
+      v-model.number="counterparent"
       :max="100"
       :min="5"
       :step="5"
@@ -24,7 +30,7 @@
     <zRadioButton
       name="title"
       id="zep_radio_male"
-      className="zep-radio__input"
+      classNameProp="zep-radio__input"
       label="Male"
       value="male"
       v-bind:checked="true"
@@ -34,7 +40,7 @@
     <zRadioButton
       name="title"
       id="zep_radio_female"
-      className="zep-radio__input"
+      classNameProp="zep-radio__input"
       label="Female"
       value="female"
       v-bind:checked="false"
@@ -42,6 +48,24 @@
       v-on:input="changeValue"
     ></zRadioButton>
     <span>Selected Radio: {{radioButtonCheck}}</span>
+    <br />
+    <br />
+    <!--  <zSelect
+      label="Country"
+      placeholder="Countries"
+      :dataSource="selectDataSource"
+      @selectlist-click="onSelectOptionClick"
+    />-->
+    <br />
+    <zSearchInput
+      id="searchbar"
+      placeholder="Search"
+      title="zepicons-search"
+      v-model="searchItem"
+      v-bind:dataSource="searchItems"
+      @onlist-click="getSearchItem"
+      @onenter_keypress="getSearchItem"
+    ></zSearchInput>
   </div>
 </template>
 
@@ -49,27 +73,34 @@
 import { ZelVueButton } from "@/entry";
 import { ZelVueCheckbox } from "@/entry";
 import { ZelVueInput } from "@/entry";
-import { ZelBulletList } from "@/entry";
-import { ZelAttributeList } from "@/entry";
-import { ZelNotifications } from "@/entry";
-import { ZelNumberInput } from "@/entry";
-import { ZelRadioButton } from "@/entry";
-
+import { ZelVueBulletList } from "@/entry";
+import { ZelVueAttributeList } from "@/entry";
+import { ZelVueNotifications } from "@/entry";
+import { ZelVueNumberInput } from "@/entry";
+import { ZelVueRadioButton } from "@/entry";
+import { ZelVueSearchInput } from "@/entry";
+import { ZelVueSelect } from "@/entry";
 import "../zeppelin-element-library.css";
+import { default as mockData } from "../mockdata";
+console.log(mockData);
 export default {
   name: "app",
   components: {
     zButton: ZelVueButton,
     zCheckbox: ZelVueCheckbox,
     zInput: ZelVueInput,
-    zBulletList: ZelBulletList,
-    zAttributeList: ZelAttributeList,
-    zNotify: ZelNotifications,
-    zNumberInput: ZelNumberInput,
-    zRadioButton: ZelRadioButton
+    zBulletList: ZelVueBulletList,
+    zAttributeList: ZelVueAttributeList,
+    zNotify: ZelVueNotifications,
+    zNumberInput: ZelVueNumberInput,
+    zRadioButton: ZelVueRadioButton,
+    zSearchInput: ZelVueSearchInput,
+    zSelect: ZelVueSelect
   },
   data: function() {
     return {
+      selectedOption: "",
+      selectDataSource: mockData,
       testmessage: "text change",
       isChecked: false,
       listItems: [{ text: "item 1" }, { text: "item 2" }, { text: "item 3" }],
@@ -79,7 +110,38 @@ export default {
         { label: "label 1", text: "item 1" },
         { label: "label 2", text: "item 2" },
         { label: "label 3", text: "item 3" }
-      ]
+      ],
+      searchItems: [
+        "forge",
+        "enjoy",
+        "museum",
+        "tolerate",
+        "past",
+        "headline",
+        "module",
+        "thaw",
+        "popular",
+        "arrow",
+        "wave",
+        "sacrifice",
+        "scenario",
+        "banish",
+        "feel",
+        "volunteer",
+        "intelligence",
+        "document",
+        "fade",
+        "input number",
+        "input text",
+        "input",
+        "radio",
+        "radio group",
+        "select",
+        "checkbox",
+        "list",
+        "form"
+      ],
+      searchItem: ""
     };
   },
   computed: {
@@ -88,6 +150,9 @@ export default {
     }
   },
   methods: {
+    onSelectOptionClick(evtValue) {
+      this.selectedOption = evtValue;
+    },
     onHandleClick() {
       console.log(this.testmessage);
     },
@@ -98,7 +163,10 @@ export default {
       this.counterparent = evtValue;
     },
     changeValue: function(newValue) {
-      this.radioButtonCheck = newValue; 
+      this.radioButtonCheck = newValue;
+    },
+    getSearchItem(evtValue) {
+      this.searchItem = evtValue;
     }
   }
 };

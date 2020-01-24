@@ -7,7 +7,7 @@
       data-zep-max="10"
       data-zep-min="0"
     >
-      <button id="minus" class="zep-button zep-button-icon" @click="decreament(value)">
+      <button id="minus" class="zep-button zep-button-icon" @click="onDecreament(value)">
         <svg
           class="zep-button__icon"
           version="1.1"
@@ -17,14 +17,11 @@
           viewBox="0 0 32 32"
         >
           <title>{{ minustitle }}</title>
-          <path
-            fill="currentColor"
-            d="M25.333 17.333h-18.667v-2.667h18.667z"
-          ></path>
+          <path fill="currentColor" d="M25.333 17.333h-18.667v-2.667h18.667z" />
         </svg>
       </button>
-      <label for="counter" class="zep-visually-hidden">Counter</label
-      ><input
+      <label for="counter" class="zep-visually-hidden">Counter</label>
+      <input
         id="counter"
         type="text"
         :max="max"
@@ -32,11 +29,11 @@
         :step="step"
         class="zep-input zep-input--number"
         :value="value"
-        @input="$emit('input', $event.target.value)"
-        @change="updateCounter"
+        @input="onInput"
+        @change="onUpdateCounter"
         @focus="clear"
       />
-      <button id="plus" class="zep-button zep-button-icon" @click="increament(value)">
+      <button id="plus" class="zep-button zep-button-icon" @click="onIncreament(value)">
         <svg
           class="zep-button__icon"
           version="1.1"
@@ -46,10 +43,7 @@
           viewBox="0 0 32 32"
         >
           <title>{{ plustitle }}</title>
-          <path
-            fill="currentColor"
-            d="M25.333 17.333h-8v8h-2.667v-8h-8v-2.667h8v-8h2.667v8h8z"
-          ></path>
+          <path fill="currentColor" d="M25.333 17.333h-8v8h-2.667v-8h-8v-2.667h8v-8h2.667v8h8z" />
         </svg>
       </button>
     </div>
@@ -57,8 +51,9 @@
 </template>
 
 <script>
+import { parse } from "@babel/core";
 export default {
-  name: "ZelNumberInput",
+  name: "ZelVueNumberInput",
   props: {
     plustitle: String,
     minustitle: String,
@@ -73,22 +68,23 @@ export default {
       default: 0
     }
   },
-  data: function() {
-    return {};
-  },
   methods: {
     clear() {
-      return (this.counter = 0);
+      this.$emit("input", 0);
     },
-    updateCounter(evt) {
+    onInput(evt) {
+      let value = parseInt(evt.target.value, 10);
+      /^[0-9]*$/.test(evt.target.value) ? this.$emit("input", value) : 0;
+    },
+    onUpdateCounter(evt) {
       let counter = parseInt(evt.target.value, 10);
       if (counter >= this.min && counter <= this.max) {
-        return (this.counter = counter);
+        return counter;
       } else {
         this.clear();
       }
     },
-    increament(counter) {
+    onIncreament(counter) {
       counter = parseInt(counter, 10);
       let step = this.step || 1;
       counter += step;
@@ -96,7 +92,7 @@ export default {
         this.$emit("onplus-click", counter);
       }
     },
-    decreament(counter) {
+    onDecreament(counter) {
       counter = parseInt(counter, 10);
       let step = this.step || 1;
       counter -= step;

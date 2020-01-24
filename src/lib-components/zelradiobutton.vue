@@ -12,7 +12,7 @@
     <input
       type="radio"
       v-bind:name="name"
-      v-bind:class="className"
+      v-bind:class="classNameProp"
       v-bind:id="id"
       v-bind:checked="checked"
       v-bind:value="value"
@@ -25,13 +25,13 @@
 
 <script>
 export default {
-  name: "radioButton",
+  name: "ZelVueRadioButton",
   props: {
     name: {
       type: String,
       required: false
     },
-    className: {
+    classNameProp: {
       type: String,
       required: false
     },

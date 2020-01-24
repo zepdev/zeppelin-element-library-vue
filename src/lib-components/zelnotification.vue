@@ -4,13 +4,13 @@
     :message="message"
     :autoHideDuration="autoHideDuration"
   >
-    {{ message }}
+    <slot>{{ message }}</slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: "notifications",
+  name: "ZelVueNotification",
   props: {
     variant: {
       type: String,
