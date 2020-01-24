@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "bulletlist",
+  name: "ZelVueBulletlist",
   props: {
     dataSource: {
       type: Array,

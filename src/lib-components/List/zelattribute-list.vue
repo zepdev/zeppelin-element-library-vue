@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "attributeListItem",
+  name: "ZelVueAttributeListItem",
   props: {
     dataSource: {
       type: Array,

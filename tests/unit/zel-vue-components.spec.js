@@ -7,6 +7,7 @@ import { ZelNotifications } from "@/entry";
 import { ZelNumberInput } from "@/entry";
 import { ZelVueButton } from "@/entry";
 import { ZelRadioButton } from "@/entry";
+import { ZelSearchInput } from "@/entry";
 
 describe("ZelVueButton", () => {
   let buttonWrapper;
@@ -147,7 +148,7 @@ describe("ZelVueInput", () => {
 describe("ZelNumberInput", () => {
   let numberInputWrapper;
   beforeEach(() => {
-    numberInputWrapper = shallowMount(ZelNumberInput, {
+    numberInputWrapper = mount(ZelNumberInput, {
       propsData: {
         minustitle: "Zeppelin Minus",
         plustitle: "Zeppelin Plus",
@@ -193,20 +194,19 @@ describe("ZelNumberInput", () => {
     expect(numberInputWrapper.emitted("onplus-click")).toBeTruthy();
   });
   test("expect number input value to increase onValueChange", () => {
-    let NumberinputComponent = numberInputWrapper.find("input");
-    NumberinputComponent.element.value = 5;
-    NumberinputComponent.trigger("change");
-    expect(numberInputWrapper.vm.counter).toBe(5);
-  })
-  test("expect number input value to decrease onMinusClick", () => {
-    /*   expect(numberInputWrapper.vm.counter).toBe(1);
-      numberInputWrapper.find("#minus").trigger("click");
-      expect(numberInputWrapper.vm.counter).toBe(0);  */
-  })
-  test("expect number input value to increase onPlusClick", () => {
-    /* expect(numberInputWrapper.vm.counter).toBe(1);
-    numberInputWrapper.find('#plus').trigger("click");
-    expect(numberInputWrapper.vm.counter).toBe(2); */
+     const parentNumberInputWrapper = mount({
+      data: function () {
+        return {
+          counter: 0
+        };
+      },
+      template: "<div><zNumberInput v-model='counter'></zNumberInput></div>",
+      components: { zNumberInput: ZelNumberInput }
+    });
+    const numberInputComponent = parentNumberInputWrapper.find("input");
+    numberInputComponent.element.value = 5;
+    numberInputComponent.trigger("input");
+    expect(parentNumberInputWrapper.vm.counter).toBe(5);
   })
   test("expect plus button to be visible and available ", () => {
     expect(numberInputWrapper.find("#plus").isVisible()).toBe(true)
@@ -326,4 +326,54 @@ describe("ZelAttributeList", () => {
   test("expect attributeListWrapper to have a (ul items) with class 'zep-list__item' ", () => {
     expect(attributeListWrapper.find("ul").classes()).toContain("zep-list");
   })
+})
+describe("ZelSearchInput", () => {
+  /*let searchWrapper;
+  beforeEach(() => {
+    searchWrapper = shallowMount(ZelSearchInput, {
+      propsData: {
+        id: "searchbar",
+        placeholder: "Search",
+        title: "zepicons-search",
+      
+      },
+       data: function () {
+        return {
+          searchItems: [
+            "forge",
+            "enjoy",
+            "museum",
+            "tolerate",
+            "past",
+            "headline",
+            "module",
+            "thaw",
+            "popular",
+            "arrow"],
+          searchItem: ""
+        }
+      },
+      methods: {
+        getSearchItem(evtValue) {
+          this.searchItem = evtValue;
+        }
+      },
+      template: `<zSearchInput 
+                  v-model="searchItem"
+                  v-bind:dataSource="searchItems"
+                  @onlist-click="getSearchItem"
+                  @onenter_keypress="getSearchItem">
+                  </zSearchInput >`,
+      components: { zSearchInput: ZelSearchInput }
+    })
+  })
+  afterEach(() => {
+    searchWrapper.destroy();
+  })
+  test("Should search for item enjoy in the list of items ", () => {
+   let searchComponent = searchWrapper.find("input");
+     searchComponent.element.value = "enjoy";
+     searchComponent.trigger("input");
+     expect(searchWrapper.vm.searchItem).toBe("enjoy"); 
+  })*/
 })
