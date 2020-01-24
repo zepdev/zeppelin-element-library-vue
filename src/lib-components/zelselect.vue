@@ -9,8 +9,12 @@
         aria-labelledby="exp_elem exp_button"
         id="exp_button"
         class="zep-select__button"
+        v-bind:value="value"
+        v-bind:dataSource="dataSource"
+        v-on:click="getItem"
       >
-        <slot>{{placeholder}}</slot>
+        <slot v-if="value">{{value}}</slot>
+        <slot v-else>{{placeholder}}</slot>
         <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,34 +28,44 @@
           />
         </svg>
       </button>
-      <ul
-        id="exp_elem_list"
-        tabindex="-1"
-        role="listbox"
-        aria-labelledby="exp_elem"
-        class="zep-select__list zep-visually-hidden"
-      >
-        <li id="exp_elem_A" role="option" tabindex="0" class="zep-select__listitem"
-            v-for="(item , index) in dataItems"
+      <div class="item_container">
+        <ul
+          id="exp_elem_list"
+          tabindex="-1"
+          role="listbox"
+          aria-labelledby="exp_elem"
+          class="zep-select__list"
+          v-show="showItems"
+        >
+          <li
+            id="{ index }"
+            role="option"
+            tabindex="0"
+            class="zep-select__listitem"
+            v-for="(item , index) in dataSource"
             v-bind:key="index"
             v-on:click="setSelectedValue(item)"
-        >
-
-        </li>
-    
-      </ul>
+          >
+            <span>{{ item }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ZelVueselect",
+  name: "ZelVueSelect",
   props: {
     label: {
       type: String,
       required: true,
-      default: "Label"
+      default: "label"
+    },
+    value: {
+      type: String,
+      required: true
     },
     dataSource: {
       type: Array,
@@ -64,20 +78,40 @@ export default {
       required: true
     }
   },
-   data: function() {
+  data: function() {
     return {
-      currentItem: 0,
-      dataItems: dataSource,
-      isFound: falses
-    }
+      dataItems: [],
+      showItems: false
+    };
   },
-  methods:{
-      setSelectedValue(value) {
+  methods: {
+    setSelectedValue(value) {
       this.$emit("selectlist-click", value);
+      this.showItems = false;
     },
+    getItem() {
+      if (this.showItems) {
+        this.showItems = false;
+      } else {
+        this.showItems = true;
+      }
+    }
   }
 };
 </script>
 
-<style>
+<style lang="css" scoped>
+.item_container {
+  position: relative;
+  width: inherit;
+}
+.item_container .zep-select__list {
+  cursor: pointer;
+  max-height: 300px;
+  overflow: scroll;
+}
+.zep-select__listitem:hover {
+  background-color: rgb(236, 238, 239);
+}
+</style>
 </style>

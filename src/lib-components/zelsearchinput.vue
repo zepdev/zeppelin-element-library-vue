@@ -35,7 +35,7 @@
         <span>{{item}}</span>
       </li>
     </ul>
-    <label class="zep-visually-hidden" for="searchbar">
+    <label class="" for="searchbar">
       <slot>{{lable}}</slot>
     </label>
   </div>
@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: "ZelVueSearchhInput",
+  name: "ZelVueSearchInput",
   props: {
     id: {
       type: String,
@@ -144,7 +144,6 @@ export default {
   position: absolute;
   z-index: 1;
   width: 100%;
-  pointer-events: none;
   top: 100%;
 }
 </style>
