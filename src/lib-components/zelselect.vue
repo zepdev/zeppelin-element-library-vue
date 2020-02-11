@@ -38,9 +38,9 @@
           v-show="showItems"
         >
           <li
-            id="{ index }"
+            :id="index"
             role="option"
-            tabindex="0"
+            :tabindex="index"
             class="zep-select__listitem"
             v-for="(item , index) in dataSource"
             v-bind:key="index"
@@ -80,7 +80,6 @@ export default {
   },
   data: function() {
     return {
-      dataItems: [],
       showItems: false
     };
   },
