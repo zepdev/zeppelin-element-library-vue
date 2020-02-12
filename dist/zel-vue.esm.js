@@ -1,3 +1,5 @@
+import '@babel/core';
+
 //
 //
 //
@@ -285,16 +287,24 @@ const __vue_component__$1 = normalizeComponent({
 //
 //
 //
+//
 var script$2 = {
+  name: "ZelVueInput",
   props: {
     placeholder: {
       type: String
     },
     disabled: Boolean,
-    label: String,
+    label: {
+      type: String,
+      default: "label text"
+    },
     value: String,
     error: Boolean,
-    errMessage: String
+    errorMessage: {
+      type: String,
+      default: "Required"
+    }
   },
   computed: {
     inputDisabled() {
@@ -316,7 +326,8 @@ var __vue_render__$2 = function () {
   var _c = _vm._self._c || _h;
 
   return _c('div', {
-    staticClass: "zep-input-container"
+    staticClass: "zep-input-container",
+    class: [_vm.error && 'zep-input-container--error']
   }, [_c('input', {
     staticClass: "zep-input",
     attrs: {
@@ -338,12 +349,12 @@ var __vue_render__$2 = function () {
     attrs: {
       "for": "inputZeppelin"
     }
-  }, [_vm._v(_vm._s(_vm.placeholder))]), _vm._v(" "), _vm.error ? _c('label', {
+  }, [_vm._v(" " + _vm._s(_vm.label))]), _vm._v(" "), _vm.error ? _c('label', {
     staticClass: "zep-input-container__feedback",
     attrs: {
       "for": "inputZeppelin"
     }
-  }, [_vm._v(_vm._s(_vm.errorMessage))]) : _vm._e()]);
+  }, [_vm._v(_vm._s(_vm.errorMessage) + "\n    ")]) : _vm._e()]);
 };
 
 var __vue_staticRenderFns__$2 = [];
@@ -383,7 +394,7 @@ const __vue_component__$2 = normalizeComponent({
 //
 //
 var script$3 = {
-  name: "bulletlist",
+  name: "ZelVueBulletlist",
   props: {
     dataSource: {
       type: Array,
@@ -451,7 +462,7 @@ const __vue_component__$3 = normalizeComponent({
 //
 //
 var script$4 = {
-  name: "attributeListItem",
+  name: "ZelVueAttributeListItem",
   props: {
     dataSource: {
       type: Array,
@@ -518,7 +529,7 @@ const __vue_component__$4 = normalizeComponent({
 //
 //
 var script$5 = {
-  name: "notifications",
+  name: "ZelVueNotification",
   props: {
     variant: {
       type: String,
@@ -555,7 +566,7 @@ var __vue_render__$5 = function () {
       "message": _vm.message,
       "autoHideDuration": _vm.autoHideDuration
     }
-  }, [_vm._v("\n  " + _vm._s(_vm.message) + "\n")]);
+  }, [_vm._t("default", [_vm._v(_vm._s(_vm.message))])], 2);
 };
 
 var __vue_staticRenderFns__$5 = [];
@@ -583,65 +594,8 @@ const __vue_component__$5 = normalizeComponent({
 }, __vue_inject_styles__$5, __vue_script__$5, __vue_scope_id__$5, __vue_is_functional_template__$5, __vue_module_identifier__$5, false, undefined, undefined, undefined);
 
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var script$6 = {
-  name: "ZelNumberInput",
+  name: "ZelVueNumberInput",
   props: {
     plustitle: String,
     minustitle: String,
@@ -656,25 +610,27 @@ var script$6 = {
       default: 0
     }
   },
-  data: function () {
-    return {};
-  },
   methods: {
     clear() {
-      return this.counter = 0;
+      this.$emit("input", 0);
     },
 
-    updateCounter(evt) {
+    onInput(evt) {
+      let value = parseInt(evt.target.value, 10);
+      /^[0-9]*$/.test(evt.target.value) ? this.$emit("input", value) : 0;
+    },
+
+    onUpdateCounter(evt) {
       let counter = parseInt(evt.target.value, 10);
 
       if (counter >= this.min && counter <= this.max) {
-        return this.counter = counter;
+        return counter;
       } else {
         this.clear();
       }
     },
 
-    increament(counter) {
+    onIncreament(counter) {
       counter = parseInt(counter, 10);
       let step = this.step || 1;
       counter += step;
@@ -684,7 +640,7 @@ var script$6 = {
       }
     },
 
-    decreament(counter) {
+    onDecreament(counter) {
       counter = parseInt(counter, 10);
       let step = this.step || 1;
       counter -= step;
@@ -723,7 +679,7 @@ var __vue_render__$6 = function () {
     },
     on: {
       "click": function ($event) {
-        return _vm.decreament(_vm.value);
+        return _vm.onDecreament(_vm.value);
       }
     }
   }, [_c('svg', {
@@ -745,7 +701,7 @@ var __vue_render__$6 = function () {
     attrs: {
       "for": "counter"
     }
-  }, [_vm._v("Counter")]), _c('input', {
+  }, [_vm._v("Counter")]), _vm._v(" "), _c('input', {
     staticClass: "zep-input zep-input--number",
     attrs: {
       "id": "counter",
@@ -758,10 +714,8 @@ var __vue_render__$6 = function () {
       "value": _vm.value
     },
     on: {
-      "input": function ($event) {
-        return _vm.$emit('input', $event.target.value);
-      },
-      "change": _vm.updateCounter,
+      "input": _vm.onInput,
+      "change": _vm.onUpdateCounter,
       "focus": _vm.clear
     }
   }), _vm._v(" "), _c('button', {
@@ -771,7 +725,7 @@ var __vue_render__$6 = function () {
     },
     on: {
       "click": function ($event) {
-        return _vm.increament(_vm.value);
+        return _vm.onIncreament(_vm.value);
       }
     }
   }, [_c('svg', {
@@ -841,13 +795,13 @@ const __vue_component__$6 = normalizeComponent({
 //
 //
 var script$7 = {
-  name: "radioButton",
+  name: "ZelVueRadioButton",
   props: {
     name: {
       type: String,
       required: false
     },
-    className: {
+    classNameProp: {
       type: String,
       required: false
     },
@@ -895,7 +849,7 @@ var __vue_render__$7 = function () {
   return _c('label', {
     staticClass: "zep-radio"
   }, [_vm._t("default", [_vm._v(_vm._s(_vm.label))]), _vm._v(" "), _c('input', {
-    class: _vm.className,
+    class: _vm.classNameProp,
     attrs: {
       "type": "radio",
       "name": _vm.name,
@@ -938,18 +892,524 @@ const __vue_component__$7 = normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__$7
 }, __vue_inject_styles__$7, __vue_script__$7, __vue_scope_id__$7, __vue_is_functional_template__$7, __vue_module_identifier__$7, false, undefined, undefined, undefined);
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var script$8 = {
+  name: "ZelVueSearchInput",
+  props: {
+    id: {
+      type: String,
+      required: false,
+      default: "searchbar"
+    },
+    className: {
+      type: String,
+      required: false
+    },
+    lable: {
+      type: String,
+      default: "Search",
+      required: false
+    },
+    titlelabel: {
+      type: String,
+      required: false,
+      default: "zepicons-search"
+    },
+    plachholder: {
+      type: String,
+      default: "Search",
+      required: false
+    },
+    dataSource: {
+      type: Array,
+      required: true
+    },
+    value: String
+  },
+  data: function () {
+    return {
+      currentItem: 0,
+      dataItems: [],
+      isFound: false
+    };
+  },
+  methods: {
+    findItem(event) {
+      let searchValue = event.target.value;
+
+      if (searchValue.length <= 0) {
+        this.isFound = false;
+        this.$emit("input");
+        return [];
+      }
+
+      this.isFound = true;
+      this.dataItems = this.dataSource.filter(item => {
+        return item.toLowerCase().startsWith(searchValue.toLowerCase());
+      });
+      this.$emit("input", event.target.value);
+    },
+
+    setSelectedValue(value) {
+      this.isFound = false;
+      this.$emit("onlist-click", value);
+    },
+
+    setSelectedValueOnEnter() {
+      this.isFound = false;
+      let value = document.querySelector("li.active-item").innerText;
+      this.$emit("onenter_keypress", value);
+    },
+
+    nextItem() {
+      if (event.keyCode == 38 && this.currentItem > 0) {
+        this.currentItem--;
+      } else if (event.keyCode == 40 && this.currentItem < this.dataItems.length) {
+        this.currentItem++;
+      } else if (this.currentItem === this.dataItems.length) {
+        this.currentItem = 0;
+      }
+    },
+
+    classObject: function (index) {
+      return {
+        "active-item": this.currentItem === index
+      };
+    }
+  }
+};
+
+const isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+function createInjector(context) {
+    return (id, style) => addStyle(id, style);
+}
+let HEAD;
+const styles = {};
+function addStyle(id, css) {
+    const group = isOldIE ? css.media || 'default' : id;
+    const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        let code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
+        }
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                style.element.setAttribute('media', css.media);
+            if (HEAD === undefined) {
+                HEAD = document.head || document.getElementsByTagName('head')[0];
+            }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            const index = style.ids.size - 1;
+            const textNode = document.createTextNode(code);
+            const nodes = style.element.childNodes;
+            if (nodes[index])
+                style.element.removeChild(nodes[index]);
+            if (nodes.length)
+                style.element.insertBefore(textNode, nodes[index]);
+            else
+                style.element.appendChild(textNode);
+        }
+    }
+}
+
+/* script */
+const __vue_script__$8 = script$8;
+/* template */
+
+var __vue_render__$8 = function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('div', {
+    staticClass: "zep-search zep-search-container",
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('input', {
+    staticClass: "zep-search__input",
+    attrs: {
+      "type": "text",
+      "palceholder": _vm.plachholder,
+      "dataSource": _vm.dataSource,
+      "id": _vm.id
+    },
+    domProps: {
+      "value": _vm.value
+    },
+    on: {
+      "keypress": function ($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) {
+          return null;
+        }
+
+        return _vm.setSelectedValueOnEnter($event);
+      },
+      "input": _vm.findItem,
+      "keyup": _vm.nextItem
+    }
+  }), _vm._v(" "), _c('svg', {
+    staticClass: "zep-search__icon",
+    attrs: {
+      "version": "1.1",
+      "xmlns": "http://www.w3.org/2000/svg",
+      "width": "24",
+      "height": "24",
+      "viewBox": "0 0 24 24"
+    }
+  }, [_c('title', [_vm._t("default", [_vm._v(_vm._s(_vm.titlelabel))])], 2), _vm._v(" "), _c('path', {
+    attrs: {
+      "fill": "currentColor",
+      "d": "M12.667 4c4.786 0 8.667 3.88 8.667 8.667 0 2.147-0.787 4.12-2.080 5.64l0.36 0.36h1.053l6.667 6.667-2 2-6.667-6.667v-1.053l-0.36-0.36c-1.52 1.293-3.493 2.080-5.64 2.080-4.786 0-8.667-3.88-8.667-8.667s3.88-8.667 8.667-8.667v0zM12.667 6.667c-3.333 0-6 2.667-6 6s2.667 6 6 6c3.333 0 6-2.667 6-6s-2.667-6-6-6z"
+    }
+  })]), _vm._v(" "), _c('ul', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.isFound,
+      expression: "isFound"
+    }],
+    staticClass: "search_items"
+  }, _vm._l(_vm.dataItems, function (item, index) {
+    return _c('li', {
+      key: index,
+      class: _vm.classObject(index),
+      on: {
+        "click": function ($event) {
+          return _vm.setSelectedValue(item);
+        }
+      }
+    }, [_c('span', [_vm._v(_vm._s(item))])]);
+  }), 0), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "searchbar"
+    }
+  }, [_vm._t("default", [_vm._v(_vm._s(_vm.lable))])], 2)]);
+};
+
+var __vue_staticRenderFns__$8 = [];
+/* style */
+
+const __vue_inject_styles__$8 = function (inject) {
+  if (!inject) return;
+  inject("data-v-61864c3e_0", {
+    source: ".active-item[data-v-61864c3e]{background-color:#ddd}.search_items[data-v-61864c3e]{border:1px solid rgba(0,0,0,.72)}.search_items li[data-v-61864c3e]{padding:10px;font-size:14px;cursor:pointer}.zep-search-container[data-v-61864c3e]{position:relative}.zep-search-container ul[data-v-61864c3e]{position:absolute;z-index:1;width:100%;top:100%}",
+    map: undefined,
+    media: undefined
+  });
+};
+/* scoped */
+
+
+const __vue_scope_id__$8 = "data-v-61864c3e";
+/* module identifier */
+
+const __vue_module_identifier__$8 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$8 = false;
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$8 = normalizeComponent({
+  render: __vue_render__$8,
+  staticRenderFns: __vue_staticRenderFns__$8
+}, __vue_inject_styles__$8, __vue_script__$8, __vue_scope_id__$8, __vue_is_functional_template__$8, __vue_module_identifier__$8, false, createInjector, undefined, undefined);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var script$9 = {
+  name: "ZelVueSelect",
+  props: {
+    label: {
+      type: String,
+      required: true,
+      default: "label"
+    },
+    value: {
+      type: String,
+      required: true
+    },
+    dataSource: {
+      type: Array,
+      required: true,
+      default: []
+    },
+    placeholder: {
+      type: String,
+      default: "Select One",
+      required: true
+    }
+  },
+  data: function () {
+    return {
+      showItems: false
+    };
+  },
+  methods: {
+    setSelectedValue(value) {
+      this.$emit("selectlist-click", value);
+      this.showItems = false;
+    },
+
+    getItem() {
+      if (this.showItems) {
+        this.showItems = false;
+      } else {
+        this.showItems = true;
+      }
+    }
+
+  }
+};
+
+/* script */
+const __vue_script__$9 = script$9;
+/* template */
+
+var __vue_render__$9 = function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('div', {
+    staticClass: "zep-select",
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('label', {
+    staticClass: "zep-select__label",
+    attrs: {
+      "id": "exp_elem"
+    }
+  }, [_vm._t("default", [_vm._v(_vm._s(_vm.label))])], 2), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "exp_wrapper"
+    }
+  }, [_c('button', {
+    staticClass: "zep-select__button",
+    attrs: {
+      "aria-haspopup": "listbox",
+      "aria-labelledby": "exp_elem exp_button",
+      "id": "exp_button",
+      "value": _vm.value,
+      "dataSource": _vm.dataSource
+    },
+    on: {
+      "click": _vm.getItem
+    }
+  }, [_vm.value ? _vm._t("default", [_vm._v(_vm._s(_vm.value))]) : _vm._t("default", [_vm._v(_vm._s(_vm.placeholder))]), _vm._v(" "), _c('svg', {
+    staticClass: "zep-select__icon",
+    attrs: {
+      "version": "1.1",
+      "xmlns": "http://www.w3.org/2000/svg",
+      "viewBox": "0 0 24 24"
+    }
+  }, [_c('title', [_vm._v("zepicons-navigation-dropdown")]), _vm._v(" "), _c('path', {
+    attrs: {
+      "fill": "currentColor",
+      "d": "M9.333 18.667h13.333l-6.667 6.667-6.667-6.667zM22.667 13.333h-13.333l6.667-6.667 6.667 6.667z"
+    }
+  })])], 2), _vm._v(" "), _c('div', {
+    staticClass: "item_container"
+  }, [_c('ul', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.showItems,
+      expression: "showItems"
+    }],
+    staticClass: "zep-select__list",
+    attrs: {
+      "id": "exp_elem_list",
+      "tabindex": "-1",
+      "role": "listbox",
+      "aria-labelledby": "exp_elem"
+    }
+  }, _vm._l(_vm.dataSource, function (item, index) {
+    return _c('li', {
+      key: index,
+      staticClass: "zep-select__listitem",
+      attrs: {
+        "id": index,
+        "role": "option",
+        "tabindex": index
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.setSelectedValue(item);
+        }
+      }
+    }, [_c('span', [_vm._v(_vm._s(item))])]);
+  }), 0)])])]);
+};
+
+var __vue_staticRenderFns__$9 = [];
+/* style */
+
+const __vue_inject_styles__$9 = function (inject) {
+  if (!inject) return;
+  inject("data-v-3f21dfc1_0", {
+    source: ".item_container[data-v-3f21dfc1]{position:relative;width:inherit}.item_container .zep-select__list[data-v-3f21dfc1]{cursor:pointer;max-height:300px;overflow:scroll}.zep-select__listitem[data-v-3f21dfc1]:hover{background-color:#eceeef}",
+    map: undefined,
+    media: undefined
+  });
+};
+/* scoped */
+
+
+const __vue_scope_id__$9 = "data-v-3f21dfc1";
+/* module identifier */
+
+const __vue_module_identifier__$9 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$9 = false;
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$9 = normalizeComponent({
+  render: __vue_render__$9,
+  staticRenderFns: __vue_staticRenderFns__$9
+}, __vue_inject_styles__$9, __vue_script__$9, __vue_scope_id__$9, __vue_is_functional_template__$9, __vue_module_identifier__$9, false, createInjector, undefined, undefined);
+
 /* eslint-disable import/prefer-default-export */
+ // export { default as ZelVueTable } from "./Table/zeltable.vue";
 
 var components = /*#__PURE__*/Object.freeze({
   __proto__: null,
   ZelVueButton: __vue_component__,
   ZelVueCheckbox: __vue_component__$1,
   ZelVueInput: __vue_component__$2,
-  ZelBulletList: __vue_component__$3,
-  ZelAttributeList: __vue_component__$4,
-  ZelNotifications: __vue_component__$5,
-  ZelNumberInput: __vue_component__$6,
-  ZelRadioButton: __vue_component__$7
+  ZelVueBulletList: __vue_component__$3,
+  ZelVueAttributeList: __vue_component__$4,
+  ZelVueNotifications: __vue_component__$5,
+  ZelVueNumberInput: __vue_component__$6,
+  ZelVueRadioButton: __vue_component__$7,
+  ZelVueSearchInput: __vue_component__$8,
+  ZelVueSelect: __vue_component__$9
 });
 
 // Import vue components
@@ -982,4 +1442,4 @@ if (GlobalVue) {
 } // Default export is library as a whole, registered via Vue.use()
 
 export default plugin;
-export { __vue_component__$4 as ZelAttributeList, __vue_component__$3 as ZelBulletList, __vue_component__$5 as ZelNotifications, __vue_component__$6 as ZelNumberInput, __vue_component__$7 as ZelRadioButton, __vue_component__ as ZelVueButton, __vue_component__$1 as ZelVueCheckbox, __vue_component__$2 as ZelVueInput };
+export { __vue_component__$4 as ZelVueAttributeList, __vue_component__$3 as ZelVueBulletList, __vue_component__ as ZelVueButton, __vue_component__$1 as ZelVueCheckbox, __vue_component__$2 as ZelVueInput, __vue_component__$5 as ZelVueNotifications, __vue_component__$6 as ZelVueNumberInput, __vue_component__$7 as ZelVueRadioButton, __vue_component__$8 as ZelVueSearchInput, __vue_component__$9 as ZelVueSelect };
