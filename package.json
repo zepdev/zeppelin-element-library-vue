@@ -10,7 +10,7 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "test": "jest"
+    "test": "jest --coverage --colors --watch"
   },
   "main": "dist/zel-vue.ssr.js",
   "module": "dist/zel-vue.esm.js",
@@ -65,7 +65,19 @@
       "node_modules",
       "src"
     ],
-    "preset": "@vue/cli-plugin-unit-jest"
+    "preset": "@vue/cli-plugin-unit-jest",
+    "collectCoverage":true,
+    "coverageReporters":[
+      "json",
+      "html"
+    ],
+    "collectCoverageFrom":[
+      "src/lib-components/**/*.{js,vue}"
+    ],  
+    "coverageDirectory":"<rootDir>/coverageReport",
+    "coveragePathIgnorePatterns":[
+      "<rootDir>/node_modules"
+    ]
   },
   "engines": {
     "node": ">=8"

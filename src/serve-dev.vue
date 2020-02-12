@@ -68,6 +68,17 @@
       :dataSource="selectDataSource"
       @selectlist-click="onSelectOptionClick"
     />
+    <zTable
+      title="Personal Data"
+      :tableHeaderData="tableHeader"
+      :tableBodyData="tableBody"
+      :tableFooterData="tableFooter"
+      className="test table"
+      titleHeaderClassName="header title"
+      subtitleHeaderClassName="subtitle header title"
+      tableBodyClassName="tableBody ClassName"
+      tableHeaderClassName="tableHeader ClassName"
+    />
   </div>
 </template>
 
@@ -82,9 +93,9 @@ import { ZelVueNumberInput } from "@/entry";
 import { ZelVueRadioButton } from "@/entry";
 import { ZelVueSearchInput } from "@/entry";
 import { ZelVueSelect } from "@/entry";
+import { ZelVueTable } from "@/entry";
 import "../zeppelin-element-library.css";
 import { default as mockData } from "../mockdata";
-console.log(mockData);
 export default {
   name: "app",
   components: {
@@ -97,13 +108,84 @@ export default {
     zNumberInput: ZelVueNumberInput,
     zRadioButton: ZelVueRadioButton,
     zSearchInput: ZelVueSearchInput,
-    zSelect: ZelVueSelect
+    zSelect: ZelVueSelect,
+    zTable: ZelVueTable
   },
   data: function() {
     return {
+      tableHeader: [
+        {
+          id: "1",
+          headername: "StudentID"
+        },
+        {
+          id: "2",
+          headername: "Last Name"
+        },
+        {
+          id: "3",
+          headername: "first Name"
+        },
+         {
+          id: "4",
+          headername: "Date of Birth"
+        }
+      ],
+      tableBody: [
+        {
+          id: "1",
+          name: "Kofi",
+          firstName: "Adjei",
+          DOB:"01.12.1991"
+        },
+        {
+          id: "2",
+          name: "Ama",
+          firstName:"Vy",
+          DOB:"01.03.1991"
+        },
+        {
+          id: "3",
+          name: "Abena",
+          firstName:"Mensah",
+           DOB:"19.11.1991"
+        },
+        {
+          id: "4",
+          name: "Yaw",
+          firstName:"Nelson",
+           DOB:"12.12.1991"
+        },
+        {
+          id: "5",
+          name: "Yaa",
+          firstName:"Owusu",
+           DOB:"31.12.1995"
+        }
+      ],
+      tableFooter: [
+        {
+          id: "1",
+          name: "Total"
+        },
+        {
+          id: "2",
+          name: "Count"
+        },
+        {
+          id: "3",
+          name: "count"
+        },
+        {
+          id: "4",
+          name: "sum"
+        }
+
+      ],
       selectedOption: "",
       selectDataSource: [],
       testmessage: "text change",
+      checkedItems: [],
       isChecked: false,
       listItems: [{ text: "item 1" }, { text: "item 2" }, { text: "item 3" }],
       counterparent: 0,
@@ -175,6 +257,9 @@ export default {
     },
     getSelectedItem(evtValue) {
       this.selectedOption = evtValue;
+    },
+    getCheckedItems(evtValue) {
+      this.checkedItems = evtValue;
     }
   }
 };
