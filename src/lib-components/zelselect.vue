@@ -38,9 +38,9 @@
           v-show="showItems"
         >
           <li
-            id="{ index }"
+            :id="index"
             role="option"
-            tabindex="0"
+            :tabindex="index"
             class="zep-select__listitem"
             v-for="(item , index) in dataSource"
             v-bind:key="index"
@@ -80,7 +80,6 @@ export default {
   },
   data: function() {
     return {
-      dataItems: [],
       showItems: false
     };
   },
@@ -113,5 +112,4 @@ export default {
 .zep-select__listitem:hover {
   background-color: rgb(236, 238, 239);
 }
-</style>
 </style>
