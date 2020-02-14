@@ -1,9 +1,9 @@
-import { shallowMount, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { ZelVueButton } from "@/entry";
 describe("ZelVueButton", () => {
   let buttonWrapper;
   beforeEach(() => {
-    buttonWrapper = shallowMount(ZelVueButton, {
+    buttonWrapper = mount(ZelVueButton, {
       propsData: {
         variant: "primary",
         disabled: false
@@ -27,6 +27,10 @@ describe("ZelVueButton", () => {
   });
   test("expect button to have emit a click event", () => {
     buttonWrapper.vm.$emit("click");
+    expect(buttonWrapper.emitted("click")).toBeTruthy();
+  });
+  test("expect button to run click callback method and emitted a click event", () => {
+    buttonWrapper.vm.callback();
     expect(buttonWrapper.emitted("click")).toBeTruthy();
   });
 });

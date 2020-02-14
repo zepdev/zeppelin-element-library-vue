@@ -1,13 +1,13 @@
 <template>
   <button
-     class="zep-button"
-     @click="callback($event)"
+    class="zep-button"
+    @click="callback(event)"
     :class="[
       variant ? 'zep-button-' + variant : '',
       size === 'small' ? 'zep-button--small' : '',
       fullWidth ? 'zep-button--full' : ''
     ]"
-    :disabled="buttonDisabled"
+    :disabled="disabled"
   >
     <span
       class="zep-button__text"
@@ -33,14 +33,9 @@ export default {
       default: "primary"
     }
   },
-  computed: {
-    buttonDisabled() {
-      return this.disabled || (this.elForm || {}).disabled;
-    }
-  },
-   methods: {
+  methods: {
     callback: function(e) {
-      this.$emit('click', e);
+      this.$emit("click", e);
     }
   }
 };
