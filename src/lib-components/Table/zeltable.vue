@@ -55,7 +55,7 @@ export default {
     tableBodyData: {
       type: Array,
       required: true,
-      default:  []
+      default: []
     },
     tableFooterData: {
       type: Array,

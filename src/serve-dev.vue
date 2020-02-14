@@ -72,8 +72,7 @@
       title="Personal Data"
       :tableHeaderData="tableHeader"
       :tableBodyData="tableBody"
-      :tableFooterData="tableFooter"
-      className="test table"
+      class="test table"
       titleHeaderClassName="header title"
       subtitleHeaderClassName="subtitle header title"
       tableBodyClassName="tableBody ClassName"
@@ -126,7 +125,7 @@ export default {
           id: "3",
           headername: "first Name"
         },
-         {
+        {
           id: "4",
           headername: "Date of Birth"
         }
@@ -136,31 +135,31 @@ export default {
           id: "1",
           name: "Kofi",
           firstName: "Adjei",
-          DOB:"01.12.1991"
+          DOB: "01.12.1991"
         },
         {
           id: "2",
           name: "Ama",
-          firstName:"Vy",
-          DOB:"01.03.1991"
+          firstName: "Vy",
+          DOB: "01.03.1991"
         },
         {
           id: "3",
           name: "Abena",
-          firstName:"Mensah",
-           DOB:"19.11.1991"
+          firstName: "Mensah",
+          DOB: "19.11.1991"
         },
         {
           id: "4",
           name: "Yaw",
-          firstName:"Nelson",
-           DOB:"12.12.1991"
+          firstName: "Nelson",
+          DOB: "12.12.1991"
         },
         {
           id: "5",
           name: "Yaa",
-          firstName:"Owusu",
-           DOB:"31.12.1995"
+          firstName: "Owusu",
+          DOB: "31.12.1995"
         }
       ],
       tableFooter: [
@@ -180,7 +179,6 @@ export default {
           id: "4",
           name: "sum"
         }
-
       ],
       selectedOption: "",
       selectDataSource: [],
