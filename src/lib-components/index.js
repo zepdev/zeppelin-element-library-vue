@@ -10,3 +10,5 @@ export { default as ZelVueRadioButton } from "./zelradiobutton.vue";
 export { default as ZelVueSearchInput } from "./zelsearchinput.vue";
 export { default as ZelVueSelect } from "./zelselect.vue";
 export { default as ZelVueTable } from "./Table/zeltable.vue";
+export { default as ZelVueTabs } from "./zeltabs.vue";
+export { default as ZelVueTab } from "./zeltab.vue";

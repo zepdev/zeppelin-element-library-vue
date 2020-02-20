@@ -4,13 +4,7 @@ describe("ZelVueSearchInput", () => {
   let searchWrapper;
   beforeEach(() => {
     searchWrapper = mount({
-      propsData: {
-        id: "searchbar",
-        placeholder: "Search",
-        title: "zepicons-search",
-        dataSource: null
-      },
-      data: function() {
+      data: function () {
         return {
           searchItems: [
             "forge",

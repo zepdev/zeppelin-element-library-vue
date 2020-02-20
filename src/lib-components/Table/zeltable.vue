@@ -50,16 +50,22 @@ export default {
     tableHeaderData: {
       type: Array,
       required: true,
-      default: []
+      default: function() {
+        return [];
+      }
     },
     tableBodyData: {
       type: Array,
       required: true,
-      default: []
+      default: function() {
+        return [];
+      }
     },
     tableFooterData: {
       type: Array,
-      default: []
+      default: function() {
+        return [];
+      }
     }
   }
 };
