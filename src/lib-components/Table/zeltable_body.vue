@@ -2,7 +2,7 @@
   <tbody :class="tableBodyClassName">
     <tr
       class="zep-table__row zep-table__row--white"
-      :class="className"
+      :class="tableRowClassName"
       v-for="(row, rowIndex) in tableBodyData"
       v-bind:key="rowIndex"
     >
@@ -23,6 +23,9 @@ export default {
   name: "ZelVueTableBody",
   props: {
     tableBodyClassName: {
+      type: String
+    },
+    tableRowClassName: {
       type: String
     },
     tableBodyData: {

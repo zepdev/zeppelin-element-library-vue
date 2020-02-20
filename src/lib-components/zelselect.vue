@@ -105,9 +105,13 @@ export default {
   width: inherit;
 }
 .item_container .zep-select__list {
+  background: rgba(255, 255, 255, 1);
   cursor: pointer;
+  position: absolute;
   max-height: 300px;
   overflow: scroll;
+  width: 100%;
+  z-index: 9999;
 }
 .zep-select__listitem:hover {
   background-color: rgb(236, 238, 239);

@@ -71,4 +71,16 @@ describe("ZelVueNumberInput", () => {
   test("expect minus button to be visible and available ", () => {
     expect(numberInputWrapper.find("#minus").isVisible()).toBe(true);
   });
+  test("expect clear method to have been called ", () => {
+    numberInputWrapper.vm.clear();
+    expect(numberInputWrapper.emitted("input")).toBeTruthy();
+  });
+  test("expect decrement method to have been called", () => {
+    numberInputWrapper.vm.onDecreament(5);
+    expect(numberInputWrapper.emitted("onminus-click")).toBeTruthy();
+  });
+  test("expect Increment method to have been called", () => {
+    numberInputWrapper.vm.onIncreament(10);
+    expect(numberInputWrapper.emitted("onplus-click")).toBeTruthy();
+  });
 });
