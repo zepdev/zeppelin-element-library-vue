@@ -31,11 +31,12 @@
         v-bind:key="index"
         v-on:click="setSelectedValue(item)"
         v-bind:class="classObject(index)"
+        :ref="classObject(index)"
       >
         <span>{{item}}</span>
       </li>
     </ul>
-    <label class="" for="searchbar">
+    <label class="zep-visually-hidden" for="searchbar">
       <slot>{{lable}}</slot>
     </label>
   </div>
@@ -102,10 +103,12 @@ export default {
     },
     setSelectedValueOnEnter() {
       this.isFound = false;
-      let value = document.querySelector("li.active-item").innerText;
-      this.$emit("onenter_keypress", value);
+      Object.keys(this.$refs).forEach(el => {
+        let value = this.$refs[el][0].innerText;
+        this.$emit("onenter_keypress", value);
+      });
     },
-    nextItem() {
+    nextItem(event) {
       if (event.keyCode == 38 && this.currentItem > 0) {
         this.currentItem--;
       } else if (
@@ -119,15 +122,16 @@ export default {
     },
     classObject: function(index) {
       return {
-        "active-item": this.currentItem === index
+        active_item: this.currentItem === index
       };
     }
   }
 };
 </script>
 <style scoped>
-.active-item {
+.active_item {
   background-color: #ddd;
+  position: relative;
 }
 .search_items {
   border: 1px solid rgba(0, 0, 0, 0.72);
@@ -137,13 +141,11 @@ export default {
   font-size: 14px;
   cursor: pointer;
 }
-.zep-search-container {
-  position: relative;
-}
 .zep-search-container ul {
+  background: rgba(255, 255, 255, 1);
   position: absolute;
-  z-index: 1;
-  width: 100%;
   top: 100%;
+  width: 100%;
+  z-index: 9999;
 }
 </style>

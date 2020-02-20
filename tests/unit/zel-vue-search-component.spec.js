@@ -2,11 +2,12 @@ import { mount } from "@vue/test-utils";
 import { ZelVueSearchInput } from "@/entry";
 describe("ZelVueSearchInput", () => {
   let searchWrapper;
+
   beforeEach(() => {
     searchWrapper = mount({
-      data: function () {
+      data: function() {
         return {
-          searchItems: [
+          dataSource: [
             "forge",
             "enjoy",
             "moment",
@@ -20,7 +21,8 @@ describe("ZelVueSearchInput", () => {
             "popular",
             "arrow"
           ],
-          searchItem: ""
+          searchItem: "",
+          currentItem: 0
         };
       },
       methods: {
@@ -29,8 +31,11 @@ describe("ZelVueSearchInput", () => {
         }
       },
       template: `<div><zSearchInput 
+                  id="searchbar"
+                  placeholder="Search"
+                  title="zepicons-search"
                   v-model="searchItem"
-                  v-bind:dataSource="searchItems"
+                  v-bind:dataSource="dataSource"
                   @onlist-click="getSearchItem"
                   @onenter_keypress="getSearchItem">
                   </zSearchInput ></div>`,
@@ -63,7 +68,7 @@ describe("ZelVueSearchInput", () => {
     let listItem = searchWrapper.findAll("li");
     expect(listItem.length).toBeGreaterThan(1);
   });
-  test("expect list items for search input to match items that does not exist", () => {
+  test("expect list items for search input to not match items that does not exist", () => {
     let searchComponent = searchWrapper.find("input");
     searchComponent.element.value = "Zep";
     searchComponent.trigger("input");
@@ -72,10 +77,10 @@ describe("ZelVueSearchInput", () => {
   });
   test("Should search for item module in the list of items when mo is entered ", () => {
     let searchComponent = searchWrapper.find("input");
-    searchComponent.element.value = "mo";
+    searchComponent.element.value = "mod";
     searchComponent.trigger("input");
-    let listItem = searchWrapper.findAll("li");
+    let listItem = searchWrapper.findAll("li:first-child");
     listItem.trigger("click");
-    expect(searchWrapper.vm.searchItem).toBe("module");
+    expect(searchWrapper.vm.$data.searchItem).toBe("module");
   });
 });

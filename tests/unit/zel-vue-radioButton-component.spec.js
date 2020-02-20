@@ -43,10 +43,4 @@ describe("ZelVueRadioButton", () => {
     radioWrapper.vm.$emit("change");
     expect(radioWrapper.emitted("change")).toBeTruthy();
   });
-  test("expect radioButton value to change", () => {
-    /* let radioComponent = radioWrapper.find('input[type="radio"]');
-    radioComponent.element.selected = true;
-    radioComponent.trigger('input')
-    expect(radioWrapper.vm.checkedValue).toBe("") */
-  });
 });
