@@ -22,30 +22,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/18</span>
+                <span class='fraction'>3/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">7.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/14</span>
+                <span class='fraction'>1/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/18</span>
+                <span class='fraction'>3/18</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -235,7 +235,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -250,19 +250,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -341,8 +341,8 @@ export default {
     }
   },
   methods: {
-    clear() {
-      this.$emit("input", 0);
+<span class="fstat-no" title="function not covered" >    clear() {</span>
+<span class="cstat-no" title="statement not covered" >      this.$emit("input", 0);</span>
     },
     onInput(evt) {
       let value = parseInt(evt.target.value, 10);
@@ -356,20 +356,20 @@ export default {
 <span class="cstat-no" title="statement not covered" >        this.clear();</span>
       }
     },
-    onIncreament(counter) {
-      counter = parseInt(counter, 10);
-<span class="branch-1 cbranch-no" title="branch not covered" >      let step = this.step || 1;</span>
-      counter += step;
-<span class="missing-if-branch" title="else path not taken" >E</span>      if (counter &lt;= this.max) {
-        this.$emit("onplus-click", counter);
+<span class="fstat-no" title="function not covered" >    onIncreament(counter) {</span>
+<span class="cstat-no" title="statement not covered" >      counter = parseInt(counter, 10);</span>
+<span class="cstat-no" title="statement not covered" >      let step = this.step || 1;</span>
+<span class="cstat-no" title="statement not covered" >      counter += step;</span>
+<span class="cstat-no" title="statement not covered" >      if (counter &lt;= this.max) {</span>
+<span class="cstat-no" title="statement not covered" >        this.$emit("onplus-click", counter);</span>
       }
     },
-    onDecreament(counter) {
-      counter = parseInt(counter, 10);
-<span class="branch-1 cbranch-no" title="branch not covered" >      let step = this.step || 1;</span>
-      counter -= step;
-<span class="missing-if-branch" title="else path not taken" >E</span>      if (counter &gt;= this.min) {
-        this.$emit("onminus-click", counter);
+<span class="fstat-no" title="function not covered" >    onDecreament(counter) {</span>
+<span class="cstat-no" title="statement not covered" >      counter = parseInt(counter, 10);</span>
+<span class="cstat-no" title="statement not covered" >      let step = this.step || 1;</span>
+<span class="cstat-no" title="statement not covered" >      counter -= step;</span>
+<span class="cstat-no" title="statement not covered" >      if (counter &gt;= this.min) {</span>
+<span class="cstat-no" title="statement not covered" >        this.$emit("onminus-click", counter);</span>
       }
     }
   }
@@ -384,7 +384,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Feb 14 2020 15:38:11 GMT+0100 (Central European Standard Time)
+                at Wed Feb 12 2020 13:08:02 GMT+0100 (Central European Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>
