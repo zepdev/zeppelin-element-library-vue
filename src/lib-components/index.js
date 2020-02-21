@@ -14,4 +14,5 @@ export { default as ZelVueTabs } from "./zeltabs.vue";
 export { default as ZelVueTab } from "./zeltab.vue";
 export { default as ZelVueTagInput } from "./Tags/zeltagInput.vue";
 export { default as ZelVueTagList } from "./Tags/zeltagList.vue";
+export { default as ZelVueTag } from "./Tags/zeltag.vue"
 

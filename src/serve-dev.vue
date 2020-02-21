@@ -20,8 +20,9 @@
         </div>
       </zTab>
     </zTabs>
-    <zTagInput v-model="tags"/>
-    <br/>
+    <zTagInput v-model="tags" />
+    <zTag tagname="Tag" tagtitle="Remove" />
+    <br />
     <zButton variant="primary" @click="onHandleClick">Save Data</zButton>
     <zBulletList :dataSource="this.listItems"></zBulletList>
     <zAttributeList :dataSource="this.attributeItems"></zAttributeList>
@@ -118,6 +119,7 @@ import { ZelVueTable } from "@/entry";
 import { ZelVueTabs } from "@/entry";
 import { ZelVueTab } from "@/entry";
 import { ZelVueTagInput } from "@/entry";
+import { ZelVueTag } from "@/entry";
 import "../zeppelin-element-library.css";
 import { default as mockData } from "../mockdata";
 export default {
@@ -136,7 +138,8 @@ export default {
     zTable: ZelVueTable,
     zTabs: ZelVueTabs,
     zTab: ZelVueTab,
-    zTagInput: ZelVueTagInput
+    zTagInput: ZelVueTagInput,
+    zTag: ZelVueTag
   },
   data: function() {
     return {
