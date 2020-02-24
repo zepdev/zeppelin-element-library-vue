@@ -4,7 +4,7 @@
   >
     <input
       type="text"
-      id="inputZeppelin"
+      :id="id"
       :placeholder="placeholder"
       class="zep-input"
       :disabled="inputDisabled"
@@ -26,6 +26,7 @@
 export default {
   name:"ZelVueInput",
   props: {
+    id:String,
     placeholder: {
       type: String
     },

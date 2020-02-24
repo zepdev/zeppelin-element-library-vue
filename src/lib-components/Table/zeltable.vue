@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import ZelVueTableHeader from "./zeltable_header";
-import ZelVueTableBody from "./zeltable_body";
-import ZelVueTableFooter from "./zeltable_footer";
+import ZelVueTableHeader from "./zeltable_header.vue";
+import ZelVueTableBody from "./zeltable_body.vue";
+import ZelVueTableFooter from "./zeltable_footer.vue";
 export default {
   name: "ZelVueTable",
   components: {
