@@ -20,7 +20,8 @@
         </div>
       </zTab>
     </zTabs>
-    <zTagInput v-model="tags" />
+    <!--  <zTagInput v-model="tags" /> -->
+    <br />
     <zTag tagname="Tag" tagtitle="Remove" />
     <br />
     <zButton variant="primary" @click="onHandleClick">Save Data</zButton>
@@ -101,6 +102,13 @@
       tableBodyClassName="tableBody ClassName"
       tableHeaderClassName="tableHeader ClassName"
     />
+    <zPagination
+      :items="tableBody"
+      :perpage="2"
+      :visiblebuttons="4"
+      :currentpage="currentpage"
+      @onPagechanged="onPageChange"
+    />
   </div>
 </template>
 
@@ -120,6 +128,7 @@ import { ZelVueTabs } from "@/entry";
 import { ZelVueTab } from "@/entry";
 import { ZelVueTagInput } from "@/entry";
 import { ZelVueTag } from "@/entry";
+import { ZelVuePagination } from "@/entry";
 import "../zeppelin-element-library.css";
 import { default as mockData } from "../mockdata";
 export default {
@@ -139,10 +148,12 @@ export default {
     zTabs: ZelVueTabs,
     zTab: ZelVueTab,
     zTagInput: ZelVueTagInput,
-    zTag: ZelVueTag
+    zTag: ZelVueTag,
+    zPagination: ZelVuePagination
   },
   data: function() {
     return {
+      currentpage: 1,
       tags: ["Germany", "France", "Netherland", "Spain"],
       tabs: [
         {
@@ -206,6 +217,36 @@ export default {
           name: "Yaa",
           firstName: "Owusu",
           DOB: "31.12.1995"
+        },
+        {
+          id: "6",
+          name: "Yaa",
+          firstName: "Owusu",
+          DOB: "31.12.1995"
+        },
+        {
+          id: "7",
+          name: "Yaa",
+          firstName: "Owusu",
+          DOB: "31.12.1995"
+        },
+        {
+          id: "8",
+          name: "Yaa",
+          firstName: "Owusu",
+          DOB: "31.12.1995"
+        },
+        {
+          id: "9",
+          name: "Yaa",
+          firstName: "Owusu",
+          DOB: "31.12.1995"
+        },
+        {
+          id: "10",
+          name: "Yaa",
+          firstName: "Owusu",
+          DOB: "31.12.1995"
         }
       ],
       selectedOption: "",
@@ -263,6 +304,10 @@ export default {
     this.selectDataSource = mockData;
   },
   methods: {
+    onPageChange(page) {
+      this.currentpage = page.currentpage;
+      this.tableBody = page.pagedItems;
+    },
     onSelectOptionClick(evtValue) {
       this.selectedOption = evtValue;
     },
