@@ -1,6 +1,6 @@
 {
   "name": "@zlab-de/zel-vue",
-  "version": "1.0.8",
+  "version": "1.0.12",
   "description": "A vue component library for Zeppelin Element Library",
   "scripts": {
     "serve": "vue-cli-service serve src/serve-dev.js",
