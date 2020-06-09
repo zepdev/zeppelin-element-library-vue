@@ -1,6 +1,6 @@
 {
   "name": "@zlab-de/zel-vue",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "description": "A vue component library for Zeppelin Element Library",
   "scripts": {
     "serve": "vue-cli-service serve src/serve-dev.js",
@@ -66,16 +66,16 @@
       "src"
     ],
     "preset": "@vue/cli-plugin-unit-jest",
-    "collectCoverage":true,
-    "coverageReporters":[
+    "collectCoverage": true,
+    "coverageReporters": [
       "json",
       "html"
     ],
-    "collectCoverageFrom":[
+    "collectCoverageFrom": [
       "src/lib-components/**/*.{js,vue}"
-    ],  
-    "coverageDirectory":"<rootDir>/coverageReport",
-    "coveragePathIgnorePatterns":[
+    ],
+    "coverageDirectory": "<rootDir>/coverageReport",
+    "coveragePathIgnorePatterns": [
       "<rootDir>/node_modules"
     ]
   },
