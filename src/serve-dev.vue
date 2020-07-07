@@ -24,7 +24,7 @@
     <br />
     <zTag tagname="Tag" tagtitle="Remove" />
     <br />
-    <zButton variant="primary" @click="onHandleClick">Save Data</zButton>
+    <zButton variant="primary" icon="star" @click="onHandleClick">Save Data</zButton>
     <zBulletList :dataSource="this.listItems"></zBulletList>
     <zAttributeList :dataSource="this.attributeItems"></zAttributeList>
     <zInput
