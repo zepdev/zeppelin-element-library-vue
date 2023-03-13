@@ -1,5 +1,7 @@
 # zeppelin-element-library-vue
-Vue Components for Zeppelin Element Library
+Vue Components for Zeppelin Element Library (Legacy)
+
+## ⚠️ This Design System is deprecated and will be removed in 2024 ⚠️
 
 ## Installation and Usage
 
